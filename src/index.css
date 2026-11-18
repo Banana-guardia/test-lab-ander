@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* =====================================================================
+       MODO CLARO (LIGHT MODE) — Estilo SaaS Profesional (Linear / Stripe / Vercel)
+       Lienzo base: slate-50 (#F8FAFC) | Superficies: white (#FFFFFF)
+       ===================================================================== */
+    --bg-canvas: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-subtle: #F8FAFC;
+    --bg-surface-hover: #F1F5F9;
+    --bg-sidebar: #FFFFFF;
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+
+    --border-subtle: rgba(226, 232, 240, 0.85);
+    --border-hover: rgba(79, 70, 229, 0.35);
+
+    --brand-accent: #4F46E5;
+    --brand-accent-soft: rgba(79, 70, 229, 0.08);
+
+    --shadow-soft: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+    --shadow-elevated: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(79, 70, 229, 0.05);
+
+    /* Tokens compatibles con shadcn/ui */
+    --background: 210 40% 98%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 347 77% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 239 84% 67%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* =====================================================================
+       MODO OSCURO (DARK MODE) — Bajo Contraste Fatiga Cero (Zinc 950 / Zinc 900)
+       Lienzo base: #09090B | Superficies elevadas: #18181B | Texto: #F4F4F5
+       ===================================================================== */
+    --bg-canvas: #09090B;
+    --bg-surface: #18181B;
+    --bg-surface-subtle: #121215;
+    --bg-surface-hover: #27272A;
+    --bg-sidebar: #18181B;
+
+    --text-primary: #F4F4F5;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
+
+    --border-subtle: #27272A;
+    --border-hover: rgba(99, 102, 241, 0.45);
+
+    --brand-accent: #6366F1;
+    --brand-accent-soft: rgba(99, 102, 241, 0.12);
+
+    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.35), 0 1px 2px -1px rgba(0, 0, 0, 0.25);
+    --shadow-elevated: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(99, 102, 241, 0.12);
+
+    /* Tokens compatibles con shadcn/ui */
+    --background: 240 10% 3.9%;
+    --foreground: 240 5% 96%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+
+    --popover: 240 6% 10%;
+    --popover-foreground: 240 5% 96%;
+
+    --card: 240 6% 10%;
+    --card-foreground: 240 5% 96%;
+
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 240 5% 96%;
+
+    --accent: 240 4% 16%;
+    --accent-foreground: 240 5% 96%;
+
+    --destructive: 347 77% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --ring: 239 84% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  /* Superficie SaaS Profesional — Limpia, neutra y ergonómica */
+  .agy-card {
+    @apply bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-xl shadow-sm transition-all duration-150;
+  }
+
+  .agy-card-interactive:hover {
+    @apply border-indigo-500/40 dark:border-indigo-400/40 shadow-md -translate-y-0.5;
+  }
+
+  .agy-surface-subtle {
+    @apply bg-slate-50/80 dark:bg-zinc-800/40 border border-slate-200/70 dark:border-zinc-800 rounded-lg;
+  }
+
+  .font-poster {
+    font-family: 'Anton', Impact, 'Arial Narrow', 'Haettenschweiler', sans-serif;
+  }
+
+  .font-hud {
+    font-family: 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  }
+
+  .font-imperio {
+    font-family: 'Cinzel', Georgia, 'Times New Roman', serif;
+  }
+}

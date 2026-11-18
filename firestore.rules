@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Función auxiliar: verifica si el usuario está autenticado en Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Función auxiliar: verifica si el usuario tiene rol 'admin' o 'marketing'
+    function isAdminOrMarketing() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'andirojas0821@gmail.com' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'marketing']
+      );
+    }
+
+    // =========================================================================
+    // 1. CONTENIDO PÚBLICO DE MARKETING (`configuracion/marketing_landing`)
+    // Lectura pública (`allow read: if true;`) únicamente para este documento.
+    // Escritura exclusiva para Administrador Total o rol Marketing.
+    // =========================================================================
+    match /configuracion/marketing_landing {
+      allow read: if true;
+      allow write: if isAdminOrMarketing();
+    }
+
+    // Resto de documentos en `configuracion` protegidos
+    match /configuracion/{docId} {
+      allow read, write: if isAuthenticated() && docId != 'marketing_landing';
+    }
+
+    // =========================================================================
+    // 2. SOLICITUDES DE CLASE DE CORTESÍA (`solicitudes`)
+    // Creación pública desde el formulario de captación; lectura/edición solo staff
+    // =========================================================================
+    match /solicitudes/{solicitudId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
+    }
+
+    // =========================================================================
+    // 2B. NOTIFICACIONES DE PAGO DESDE PORTAL PÚBLICO (`payment_notifications`)
+    // Creación pública al iniciar un pago desde el portal; lectura/revisión solo staff
+    // =========================================================================
+    match /payment_notifications/{notifId} {
+      allow create: if true;
+      allow read, update, delete: if isAuthenticated();
+    }
+
+    // =========================================================================
+    // 3. RESTO DE COLECCIONES INTERNAS DEL CLUB (Protegidas)
+    // =========================================================================
+    match /{document=**} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
+
